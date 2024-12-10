@@ -1,0 +1,29 @@
+<!DOCTYPE html> <!-- Declara el tipo de documento HTML5 -->
+<html lang="es"> <!-- Define el idioma de la página como español -->
+<head>
+    <meta charset="UTF-8"> <!-- Define la codificación de caracteres como UTF-8 -->
+    <title>CHECK CODE</title> <!-- Título que aparecerá en la pestaña del navegador -->
+</head>
+<body>
+<!-- Formulario que enviará los datos al servidor usando el método POST -->
+<form action="/check_code" method="POST">
+    <!-- Campo para ingresar el correo o nombre de usuario -->
+    <label for="email">Correo / Usuario:</label>
+    <input type="text" id="email" name="login" required> <!-- Campo de texto, requerido -->
+    <br> <!-- Salto de línea -->
+
+    <!-- Campo para ingresar la contraseña -->
+    <label for="code">Codigo enviado por email:</label>
+    <input type="text" id="code" name="code" required> <!-- Campo de contraseña, requerido -->
+    <br> <!-- Salto de línea -->
+
+    <!-- Botón para enviar el formulario -->
+    <button type="submit">Aceptar</button>
+
+</form>
+
+     <a href="/register">
+    <button>Regístrate</button>
+    </a>
+</body>
+</html>
