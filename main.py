@@ -157,8 +157,8 @@ def enviar_email(data):
         log_file.close()  # No olvides cerrar el archivo de log
 
 # Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    conexion, tunnel = get_db_connection()
-    app.run()
+# if __name__ == '__main__':
+#     conexion, tunnel = get_db_connection()
+#     app.run()
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
