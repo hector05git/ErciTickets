@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="org.dam39.views.TicketCon">
+  <grid id="27dc6" binding="mainPanel" layout-manager="FormLayout">
+    <rowspec value="center:33px:noGrow"/>
+    <rowspec value="top:24dlu:noGrow"/>
+    <rowspec value="center:52px:noGrow"/>
+    <rowspec value="top:30dlu:noGrow"/>
+    <rowspec value="center:39px:noGrow"/>
+    <rowspec value="top:30dlu:noGrow"/>
+    <rowspec value="center:d:grow"/>
+    <colspec value="fill:239px:noGrow"/>
+    <colspec value="left:151dlu:noGrow"/>
+    <colspec value="fill:d:grow"/>
+    <constraints>
+      <xy x="20" y="20" width="541" height="400"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <component id="224f6" class="javax.swing.JSpinner" binding="sp_but">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false" defaultalign-vert="false"/>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="a28ab" class="javax.swing.JComboBox" binding="cb_con">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties/>
+      </component>
+      <component id="4d8f0" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+          <forms defaultalign-horz="false"/>
+        </constraints>
+        <properties>
+          <text value="COMPRAR TICKETS"/>
+        </properties>
+      </component>
+      <component id="c9542" class="javax.swing.JButton" binding="btn_buy">
+        <constraints>
+          <grid row="5" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <forms/>
+        </constraints>
+        <properties>
+          <text value="Comprar"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>
