@@ -1,6 +1,7 @@
 # This is a sample Python script.
 import json
 import smtplib
+import ssl
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
@@ -243,6 +244,8 @@ def check_code():
 
 if __name__ == '__main__':
     conexion, tunnel = get_db_connection()
-    app.run(ssl_context=('cert.pem', 'key.pem'), host='0.0.0.0', port=5000, debug=True);
-
+    #app.run(ssl_context=('cert.pem', 'key.pem'), host='0.0.0.0', port=5000, debug=True);
+    context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+    context.load_cert_chain('/root/home/certs/cerciapps_sytes_net.pem', '/root/home/certs/erciapps.key')
+    app.run(ssl_context=context, host='0.0.0.0', port=5001, debug=True)
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
