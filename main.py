@@ -15,8 +15,6 @@ import select
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 from flask import Flask, render_template, request, make_response, redirect
 from jinja2 import Environment, FileSystemLoader
-from sshtunnel import SSHTunnelForwarder
-
 from ddbb import get_db_connection
 
 
@@ -93,25 +91,25 @@ def enviar_email(data):
 
 
 
-with SSHTunnelForwarder(
-        ("mvs.sytes.net", 11080),  # Dirección y puerto del servidor SSH (usuario debe cambiar estos valores)
-        ssh_username="sshuser",  # Usuario SSH (usuario debe cambiar este valor)
-        ssh_pkey="C:\\Users\\hecto\\Desktop\\acceso remoto\\accesso remoto pve\\id_rsa",
-        # Ruta a tu archivo id_rsa (usuario debe proporcionar la ruta correcta)
-        # ssh_key_password="<TU_PASSPHRASE>",  # Passphrase para la clave privada (si la tiene)
-        remote_bind_address=("localhost", 5432),
-        # Dirección y puerto del servidor PostgreSQL (usuario debe cambiar estos valores)
-        local_bind_address=("localhost", 22)  # Puerto local para el túnel (puede cambiarse si es necesario)
-) as tunnel:
-    print("Túnel SSH establecido con éxito.")  # Imprime un mensaje cuando el túnel SSH esté listo
-
-    # Conexión a la base de datos PostgreSQL a través del túnel SSH
+# with SSHTunnelForwarder(
+#         ("mvs.sytes.net", 11080),  # Dirección y puerto del servidor SSH (usuario debe cambiar estos valores)
+#         ssh_username="sshuser",  # Usuario SSH (usuario debe cambiar este valor)
+#         ssh_pkey="C:\\Users\\hecto\\Desktop\\acceso remoto\\accesso remoto pve\\id_rsa",
+#         # Ruta a tu archivo id_rsa (usuario debe proporcionar la ruta correcta)
+#         # ssh_key_password="<TU_PASSPHRASE>",  # Passphrase para la clave privada (si la tiene)
+#         remote_bind_address=("localhost", 5432),
+#         # Dirección y puerto del servidor PostgreSQL (usuario debe cambiar estos valores)
+#         local_bind_address=("localhost", 22)  # Puerto local para el túnel (puede cambiarse si es necesario)
+# ) as tunnel:
+#     print("Túnel SSH establecido con éxito.")  # Imprime un mensaje cuando el túnel SSH esté listo
+#
+#     # Conexión a la base de datos PostgreSQL a través del túnel SSH
     conexion = psycopg2.connect(
         dbname="erictickets",  # Nombre de la base de datos (usuario debe proporcionar el nombre correcto)
         user="postgres",  # Usuario de la base de datos (usuario debe proporcionar el usuario adecuado)
         password="1234",  # Contraseña de la base de datos (usuario debe proporcionar la contraseña correcta)
         host="localhost",  # Usamos localhost porque estamos trabajando a través del túnel SSH
-        port=tunnel.local_bind_port  # Usar el puerto del túnel para la conexión local
+        port=5432  # Usar el puerto del túnel para la conexión local
     )
 
     # Establecer el nivel de aislamiento para la conexión
