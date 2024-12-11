@@ -70,7 +70,7 @@ def enviar_email(data):
     mensaje_email["From"] = remitente
     mensaje_email["To"] = destinatario
 
-    qr_base64 = generar_qr_base64("codigo")  # Pasar aqui el codigo para convertirlo imagen qr
+    qr_base64 = generar_qr_base64(data.get('codigo'))  # Pasar aqui el codigo para convertirlo imagen qr
     # Incrustar el QR como una imagen inline
     img_data = base64.b64decode(qr_base64)
     image = MIMEImage(img_data, name="qr_code.png")
@@ -88,6 +88,47 @@ def enviar_email(data):
             print("Correo enviado con éxito.")
     except Exception as e:
         print(f"Ocurrió un error al enviar el correo: {e}")
+
+
+def enviar_pago(data):
+
+    # Sustituye con tu dirección de correo
+    remitente = "correoexpendable12@gmail.com"  # Dirección de correo del remitente
+    # Sustituye con la dirección de correo del destinatario
+
+    destinatario = data.get('email')  # Dirección de correo del destinatario
+    # Cargar y renderizar la plantilla con Jinja2
+    env = Environment(loader=FileSystemLoader('templates'))  # 'templates' es el directorio con tu plantilla HTML
+    template = env.get_template('pago_template.html')
+    html_content = template.render(campoEmail=data.get('email'),
+                                   campoConcierto=data.get('concierto'),
+                                   campoButaca = data.get('butaca'),
+                                   campoPrecio = data.get('precio'))
+
+    mensaje_email = MIMEMultipart()
+    # Adjuntar el contenido HTML al mensaje
+    mensaje_email.attach(MIMEText(html_content, "html"))
+
+    #mensaje_email = MIMEText(mensaje)
+    mensaje_email["Subject"] = "Notificación de actualización en ordenes"  # Asunto del correo
+    mensaje_email["From"] = remitente
+    mensaje_email["To"] = destinatario
+
+
+    # Configuración del servidor SMTP
+    try:
+        # Usamos Gmail como ejemplo. Cambia si usas otro proveedor
+        with smtplib.SMTP("smtp.gmail.com", 587) as servidor:
+            servidor.starttls()  # Establecer conexión segura
+            # Cambia por tu contraseña de correo o contraseña de aplicación
+            servidor.login(remitente, "iqba bejw tchr iblg")  # Contraseña o contraseña de aplicación
+            servidor.sendmail(remitente, destinatario, mensaje_email.as_string())
+            print("Correo enviado con éxito.")
+    except Exception as e:
+        print(f"Ocurrió un error al enviar el correo: {e}")
+
+
+
 
 
 
@@ -119,6 +160,9 @@ cursor = conexion.cursor()
 # Ejecutar un comando SQL para escuchar las notificaciones en el canal 'ventas_notificaciones'
 
 cursor.execute("LISTEN registro_notificaciones;")
+cursor.execute("LISTEN pago_notificaciones;")
+
+
 
 print("Escuchando actualizaciones...")  # Indica que está escuchando las notificaciones
 
@@ -144,8 +188,11 @@ try:
                 # Escribir la notificación en el archivo de log
                 log_file.write(f"Notificación recibida: {notificacion.payload}\n")
                 log_file.flush()  # Asegúrate de que los datos se escriben inmediatamente en el archivo
-
+            if notificacion.channel == "registro_notificaciones":
                 enviar_email(data)
+            if notificacion.channel == "pago_notificaciones":
+                enviar_pago(data)
+
 
 except KeyboardInterrupt:
     print("Cerrando la conexión...")  # Si se interrumpe el proceso, imprime este mensaje
