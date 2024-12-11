@@ -103,7 +103,8 @@ def enviar_pago(data):
     html_content = template.render(campoEmail=data.get('email'),
                                    campoConcierto=data.get('concierto'),
                                    campoButaca = data.get('butaca'),
-                                   campoPrecio = data.get('precio'))
+                                   campoPrecio = data.get('precio'),
+                                   campoCodigo = data.get('codigo'))
 
     mensaje_email = MIMEMultipart()
     # Adjuntar el contenido HTML al mensaje
