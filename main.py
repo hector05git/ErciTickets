@@ -221,6 +221,7 @@ try:
                 # Escribir la notificación en el archivo de log
                 log_file.write(f"Notificación recibida: {notificacion.payload}\n")
                 log_file.flush()  # Asegúrate de que los datos se escriben inmediatamente en el archivo
+
             if notificacion.channel == "registro_notificaciones":
                 enviar_email(data)
             if notificacion.channel == "verify_notificaciones":
