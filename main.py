@@ -100,7 +100,7 @@ def enviar_pago(data):
     # Cargar y renderizar la plantilla con Jinja2
     env = Environment(loader=FileSystemLoader('templates'))  # 'templates' es el directorio con tu plantilla HTML
     template = env.get_template('pago_template.html')
-    html_content = template.render(campoEmail=data.get('email'),
+    html_content = template.render(
                                    campoConcierto=data.get('concierto'),
                                    campoButaca = data.get('butaca'),
                                    campoPrecio = data.get('precio'),
@@ -128,9 +128,39 @@ def enviar_pago(data):
     except Exception as e:
         print(f"Ocurrió un error al enviar el correo: {e}")
 
+def enviar_verify(data):
+    # Sustituye con tu dirección de correo
+    remitente = "correoexpendable12@gmail.com"  # Dirección de correo del remitente
+    # Sustituye con la dirección de correo del destinatario
+
+    destinatario = data.get('email')  # Dirección de correo del destinatario
+    # Cargar y renderizar la plantilla con Jinja2
+    env = Environment(loader=FileSystemLoader('templates'))  # 'templates' es el directorio con tu plantilla HTML
+    template = env.get_template('verify_template.html')
+    html_content = template.render(campoCodigo = data.get('codigo'),
+                                   campoVerify = data.get('verify'),)
+
+    mensaje_email = MIMEMultipart()
+    # Adjuntar el contenido HTML al mensaje
+    mensaje_email.attach(MIMEText(html_content, "html"))
+
+    #mensaje_email = MIMEText(mensaje)
+    mensaje_email["Subject"] = "Notificación de actualización en ordenes"  # Asunto del correo
+    mensaje_email["From"] = remitente
+    mensaje_email["To"] = destinatario
 
 
-
+    # Configuración del servidor SMTP
+    try:
+        # Usamos Gmail como ejemplo. Cambia si usas otro proveedor
+        with smtplib.SMTP("smtp.gmail.com", 587) as servidor:
+            servidor.starttls()  # Establecer conexión segura
+            # Cambia por tu contraseña de correo o contraseña de aplicación
+            servidor.login(remitente, "iqba bejw tchr iblg")  # Contraseña o contraseña de aplicación
+            servidor.sendmail(remitente, destinatario, mensaje_email.as_string())
+            print("Correo enviado con éxito.")
+    except Exception as e:
+        print(f"Ocurrió un error al enviar el correo: {e}")
 
 
 # with SSHTunnelForwarder(
@@ -162,6 +192,8 @@ cursor = conexion.cursor()
 
 cursor.execute("LISTEN registro_notificaciones;")
 cursor.execute("LISTEN pago_notificaciones;")
+cursor.execute("LISTEN verify_notificaciones;")
+
 
 
 
@@ -191,6 +223,8 @@ try:
                 log_file.flush()  # Asegúrate de que los datos se escriben inmediatamente en el archivo
             if notificacion.channel == "registro_notificaciones":
                 enviar_email(data)
+            if notificacion.channel == "verify_notificaciones":
+                enviar_verify(data)
             if notificacion.channel == "pago_notificaciones":
                 enviar_pago(data)
 
