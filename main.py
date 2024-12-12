@@ -70,12 +70,7 @@ def enviar_email(data):
     mensaje_email["From"] = remitente
     mensaje_email["To"] = destinatario
 
-    qr_base64 = generar_qr_base64(data.get('codigo'))  # Pasar aqui el codigo para convertirlo imagen qr
-    # Incrustar el QR como una imagen inline
-    img_data = base64.b64decode(qr_base64)
-    image = MIMEImage(img_data, name="qr_code.png")
-    image.add_header('Content-ID', '<qr_code>')  # Usar un ID único para referenciar en el HTML
-    mensaje_email.attach(image)
+
 
     # Configuración del servidor SMTP
     try:
@@ -115,6 +110,12 @@ def enviar_pago(data):
     mensaje_email["From"] = remitente
     mensaje_email["To"] = destinatario
 
+    qr_base64 = generar_qr_base64(data.get('codigo'))  # Pasar aqui el codigo para convertirlo imagen qr
+    # Incrustar el QR como una imagen inline
+    img_data = base64.b64decode(qr_base64)
+    image = MIMEImage(img_data, name="qr_code.png")
+    image.add_header('Content-ID', '<qr_code>')  # Usar un ID único para referenciar en el HTML
+    mensaje_email.attach(image)
 
     # Configuración del servidor SMTP
     try:
