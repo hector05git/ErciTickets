@@ -35,7 +35,6 @@
             box-sizing: border-box;
         }
         button {
-            width: 100%;
             padding: 10px;
             background-color: #007bff;
             border: none;
@@ -57,10 +56,13 @@
         .btn-container {
             display: flex;
             justify-content: space-between;
-            gap: 10px; /* Espacio entre los botones */
+            gap: 10px;
         }
         .btn-container button {
-            width: 47%; /* Reducido para que quepan mejor ambos botones */
+            flex-grow: 1;
+        }
+        a {
+            text-decoration: none;
         }
     </style>
 </head>
