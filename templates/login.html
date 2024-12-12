@@ -1,29 +1,77 @@
-<!DOCTYPE html> <!-- Declara el tipo de documento HTML5 -->
-<html lang="es"> <!-- Define el idioma de la página como español -->
+<!DOCTYPE html>
+<html lang="es"> >
 <head>
-    <meta charset="UTF-8"> <!-- Define la codificación de caracteres como UTF-8 -->
-    <title>Login</title> <!-- Título que aparecerá en la pestaña del navegador -->
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .register-btn {
+            margin-top: 10px;
+            background-color: #28a745;
+        }
+        .register-btn:hover {
+            background-color: #218838;
+        }
+    </style>
 </head>
 <body>
-<!-- Formulario que enviará los datos al servidor usando el método POST -->
+
+
 <form action="/sign_in" method="POST">
-    <!-- Campo para ingresar el correo o nombre de usuario -->
+
     <label for="email">Correo / Usuario:</label>
-    <input type="text" id="email" name="login" required> <!-- Campo de texto, requerido -->
-    <br> <!-- Salto de línea -->
+    <input type="text" id="email" name="login" required>
 
-    <!-- Campo para ingresar la contraseña -->
     <label for="password">Contraseña:</label>
-    <input type="password" id="password" name="passwd" required> <!-- Campo de contraseña, requerido -->
-    <br> <!-- Salto de línea -->
+    <input type="password" id="password" name="passwd" required>
 
-    <!-- Botón para enviar el formulario -->
+
     <button type="submit">Aceptar</button>
 
+    <a href="/register">
+        <button type="button" class="register-btn">Regístrate</button>
+    </a>
 </form>
 
-     <a href="/register">
-    <button>Regístrate</button>
-    </a>
 </body>
 </html>
