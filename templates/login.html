@@ -19,6 +19,7 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             width: 300px;
+            box-sizing: border-box;
         }
         label {
             display: block;
@@ -31,6 +32,7 @@
             margin-bottom: 20px;
             border: 1px solid #ccc;
             border-radius: 4px;
+            box-sizing: border-box;
         }
         button {
             width: 100%;
@@ -41,37 +43,41 @@
             color: white;
             font-size: 16px;
             cursor: pointer;
+            margin-bottom: 10px;
         }
         button:hover {
             background-color: #0056b3;
         }
         .register-btn {
-            margin-top: 10px;
             background-color: #28a745;
         }
         .register-btn:hover {
             background-color: #218838;
         }
+        .btn-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .btn-container button {
+            width: 48%;
+        }
     </style>
 </head>
 <body>
+    <form action="/sign_in" method="POST">
+        <label for="email">Correo / Usuario:</label>
+        <input type="text" id="email" name="login" required>
 
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="passwd" required>
 
-<form action="/sign_in" method="POST">
+        <div class="btn-container">
+            <button type="submit">Aceptar</button>
 
-    <label for="email">Correo / Usuario:</label>
-    <input type="text" id="email" name="login" required>
-
-    <label for="password">Contraseña:</label>
-    <input type="password" id="password" name="passwd" required>
-
-
-    <button type="submit">Aceptar</button>
-
-    <a href="/register">
-        <button type="button" class="register-btn">Regístrate</button>
-    </a>
-</form>
-
+            <a href="/register">
+                <button type="button" class="register-btn">Regístrate</button>
+            </a>
+        </div>
+    </form>
 </body>
 </html>
