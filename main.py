@@ -231,7 +231,7 @@ def check_code():
 
         else:
             print("Credenciales incorrectas.")
-            return render_template("login_fail.html")
+            return render_template("code_check.html")
 
     except Exception as e:
         print(f"Error al llamar al procedimiento almacenado: {e}")
