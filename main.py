@@ -82,7 +82,7 @@ def sign_in():
 
         # Llamar al procedimiento almacenado 'login_usuario'
         cursor.callproc('login_usuario', (login, passwd))
-
+        conexion.commit()
         # Obtener el valor de retorno del procedimiento (booleano)
         result = cursor.fetchone()  # Debería devolver (True,) o (False,)
         if result and result[0]:
@@ -129,10 +129,11 @@ def register_in():
         cursor.callproc('registrar_usuario', (user, email, phone, address, passwd))
 
 
+
         # Obtener el valor de retorno del procedimiento (booleano)
         result = cursor.fetchone()  # Debería devolver (True,) o (False,)
         conexion.commit()
-        if result and result[0]:
+        if result[0] is True:
             print("Registro exitoso.")
 
             return render_template('code_check.html')
@@ -212,10 +213,11 @@ def check_code():
 
         # Llamar al procedimiento almacenado 'login_usuario'
         cursor.callproc('check_code', (login, code))
+        conexion.commit()
 
         # Obtener el valor de retorno del procedimiento (booleano)
         result = cursor.fetchone()  # Debería devolver (True,) o (False,)
-        if result and result[0]:
+        if result [0] is True:
             print("Login exitoso.")
             # Generar un token JWT utilizando el nombre de usuario
             token = generate_token(login)  # deberemos usar generate_token(login) pero lo dejamos así de momento
