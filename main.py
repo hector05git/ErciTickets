@@ -15,8 +15,6 @@ import select
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 from flask import Flask, render_template, request, make_response, redirect
 from jinja2 import Environment, FileSystemLoader
-from ddbb import get_db_connection
-
 
 # Press Mayús+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
@@ -194,8 +192,6 @@ cursor = conexion.cursor()
 cursor.execute("LISTEN registro_notificaciones;")
 cursor.execute("LISTEN pago_notificaciones;")
 cursor.execute("LISTEN verify_notificaciones;")
-
-
 
 
 print("Escuchando actualizaciones...")  # Indica que está escuchando las notificaciones
